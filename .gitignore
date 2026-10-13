@@ -1,0 +1,23 @@
+# Environment variables & secrets
+.env
+*.env
+
+# SQLite Database
+*.db
+casesaathi.db
+
+# Python cache & virtual environment
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Streamlit config / cache
+.streamlit/
+
+# Binaries & Tunnels
+cloudflared.exe
+bore.exe
+bore.zip

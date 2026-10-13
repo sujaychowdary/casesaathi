@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>केस साथी एआई | CaseSaathi AI — राष्ट्रीय नागरिक विधिक सहायता एवं वाद विश्लेषण पोर्टल</title>
+    <meta name="description" content="भारत सरकार विधि साक्षरता सहायता: केस साथी एआई साधारण नागरिकों के लिए अदालती नोटिस, सम्मन एवं आदेशों का सरल भाषा में विश्लेषण एवं वाद सूची प्रबंधन पोर्टल।">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/static/index.css">
+</head>
+<body class="gov-theme">
+    <!-- National Tricolor Header Ribbon -->
+    <div class="national-tricolor-bar" aria-hidden="true">
+        <span class="color-saffron"></span>
+        <span class="color-white"></span>
+        <span class="color-green"></span>
+    </div>
+
+    <!-- Official Top Government Identity Bar -->
+    <aside class="gov-top-bar" aria-label="Official Government Header">
+        <div class="gov-top-container">
+            <div class="gov-ministry-brand">
+                <span class="gov-emblem-text">भारत सरकार | GOVERNMENT OF INDIA</span>
+                <span class="gov-separator">•</span>
+                <span class="gov-sub-dept">विधि एवं न्याय मंत्रालय | MINISTRY OF LAW & JUSTICE</span>
+            </div>
+            <div class="gov-accessibility-controls">
+                <div class="gov-live-clock" id="gov-live-clock">
+                    <span class="clock-icon">🕒</span>
+                    <span id="live-clock-text">IST Loading...</span>
+                </div>
+                <!-- Top Quick Language Switcher -->
+                <div class="gov-lang-quick-select" title="Change Language / भाषा बदलें">
+                    <span class="lang-globe-icon">🌐</span>
+                    <select id="top-quick-language-select" class="quick-lang-dropdown" onchange="setPortalLanguage(this.value)">
+                        <option value="English" selected>English</option>
+                        <option value="Hindi">हिंदी (Hindi)</option>
+                        <option value="Tamil">தமிழ் (Tamil)</option>
+                        <option value="Telugu">తెలుగు (Telugu)</option>
+                        <option value="Marathi">मराठी (Marathi)</option>
+                        <option value="Bengali">বাংলা (Bengali)</option>
+                        <option value="Gujarati">ગુજરાતી (Gujarati)</option>
+                        <option value="Kannada">ಕನ್ನಡ (Kannada)</option>
+                        <option value="Malayalam">മലയാളം (Malayalam)</option>
+                        <option value="Punjabi">ਪੰਜਾਬੀ (Punjabi)</option>
+                        <option value="Odia">ଓଡ଼ିଆ (Odia)</option>
+                        <option value="Urdu">اردو (Urdu)</option>
+                    </select>
+                </div>
+                <div class="font-size-adjusters">
+                    <button type="button" class="ctrl-btn" onclick="adjustFontSize(-1)" title="Decrease Font Size">A-</button>
+                    <button type="button" class="ctrl-btn" onclick="adjustFontSize(0)" title="Reset Font Size">A</button>
+                    <button type="button" class="ctrl-btn" onclick="adjustFontSize(1)" title="Increase Font Size">A+</button>
+                </div>
+                <button type="button" class="ctrl-btn contrast-toggle" id="theme-toggle-btn" onclick="toggleContrastTheme()" title="Toggle High Contrast / Dark Mode">
+                    <span>🌓</span>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Official Portal Header -->
+    <header class="official-portal-header" id="main-header">
+        <div class="header-container">
+            <div class="official-brand-group" id="brand-logo" onclick="switchTab('dashboard')">
+                <div class="official-seal-crest">
+                    <!-- SVG Scales of Justice Judicial Crest -->
+                    <svg viewBox="0 0 100 100" class="seal-svg" aria-label="Judicial Seal">
+                        <circle cx="50" cy="50" r="46" fill="#001833" stroke="#D4AF37" stroke-width="3"/>
+                        <circle cx="50" cy="50" r="41" fill="none" stroke="#D4AF37" stroke-width="1" stroke-dasharray="2,2"/>
+                        <!-- Pillar & Scales -->
+                        <path d="M50 18 L50 78 M42 78 L58 78 M35 84 L65 84" stroke="#FDE68A" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M22 28 L78 28" stroke="#FDE68A" stroke-width="3" stroke-linecap="round"/>
+                        <!-- Left Scale -->
+                        <path d="M26 28 L16 50 M26 28 L36 50" stroke="#D4AF37" stroke-width="1.5"/>
+                        <path d="M12 50 Q26 60 40 50 Z" fill="#F59E0B" stroke="#D4AF37" stroke-width="1.5"/>
+                        <!-- Right Scale -->
+                        <path d="M74 28 L64 50 M74 28 L84 50" stroke="#D4AF37" stroke-width="1.5"/>
+                        <path d="M60 50 Q74 60 88 50 Z" fill="#F59E0B" stroke="#D4AF37" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <div class="official-title-block">
+                    <div class="portal-main-titles">
+                        <h1 class="portal-english-title" style="font-size: 1.6rem; font-weight: 700; color: #fff; margin: 0; line-height: 1.2;">CaseSaathi <span style="color: var(--gov-gold, #f59e0b);">AI</span></h1>
+                        <span class="portal-hindi-title" style="font-size: 0.95rem; color: #cbd5e1; font-weight: 500;">केस साथी एआई • Citizen Legal Aid Portal</span>
+                    </div>
+                    <div class="portal-service-desc">National Citizen Legal Aid & Case Assistance System | राष्ट्रीय नागरिक विधिक सहायता प्रणाली</div>
+                    <div class="portal-motto">"Where there is Righteousness, there is Victory" — <em>यतो धर्मस्ततो जयः</em></div>
+                </div>
+            </div>
+
+            <div class="header-portal-actions">
+                <button class="btn btn-gov-secondary btn-sm" id="btn-portal-settings" onclick="openSettingsModal()" title="Portal Settings & Language Preferences">
+                    <span class="btn-icon">⚙️</span>
+                    <span id="lbl-settings-btn">Settings</span>
+                </button>
+                <div class="engine-status-pill" id="api-key-status-btn" onclick="openSettingsModal('ai')" title="Gemini 2.5 Flash Sovereign AI Engine Configuration">
+                    <span class="status-indicator-dot" id="api-status-dot"></span>
+                    <div class="engine-info">
+                        <span class="engine-badge-title">AI ENGINE</span>
+                        <span class="engine-badge-val" id="api-status-text">Gemini 2.5 Flash</span>
+                    </div>
+                </div>
+                <button class="btn btn-gov-primary btn-sm" id="btn-quick-new-case" onclick="openNewCaseModal()">
+                    <span class="btn-icon">📁</span>
+                    <span id="lbl-btn-new-case">+ New Case</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Official Department Navigation Ribbon -->
+        <nav class="gov-main-nav" id="primary-navigation" aria-label="Main Navigation">
+            <div class="nav-container">
+                <button class="gov-nav-tab active" id="nav-tab-dashboard" onclick="switchTab('dashboard')">
+                    <span class="tab-icon">🏛️</span>
+                    <span class="tab-label">Dashboard <small>मुख्य डैशबोर्ड</small></span>
+                </button>
+                <button class="gov-nav-tab" id="nav-tab-explain" onclick="switchTab('explain')">
+                    <span class="tab-icon">📄</span>
+                    <span class="tab-label">Explain Document <small>दस्तावेज विश्लेषण</small></span>
+                </button>
+                <button class="gov-nav-tab" id="nav-tab-cases" onclick="switchTab('cases')">
+                    <span class="tab-icon">📁</span>
+                    <span class="tab-label">My Cases <small>वाद विवरण</small></span>
+                </button>
+                <button class="gov-nav-tab" id="nav-tab-dates" onclick="switchTab('dates')">
+                    <span class="tab-icon">📅</span>
+                    <span class="tab-label">Cause List & Hearings <small>दैनिक वाद सूची</small></span>
+                    <span class="gov-badge-urgent" id="header-urgent-badge" style="display: none;">0</span>
+                </button>
+                <button class="gov-nav-tab" id="nav-tab-glossary" onclick="switchTab('glossary')">
+                    <span class="tab-icon">📖</span>
+                    <span class="tab-label">Legal Glossary & Aid <small>विधिक शब्दकोश</small></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Official Statutory Advisory Banner (Mandatory Legal Protection) -->
+    <aside class="statutory-notice-banner" id="universal-disclaimer" aria-label="Statutory Notice | वैधानिक सूचना">
+        <div class="statutory-container">
+            <div class="statutory-seal-badge">
+                <span>⚖️</span>
+                <strong>STATUTORY NOTICE | वैधानिक सूचना</strong>
+            </div>
+            <div class="statutory-text">
+                <p><strong>Public Notice:</strong> This portal is an automated AI assistance tool for citizen legal literacy and document understanding. It does not constitute official legal advice from a court or attorney. Please verify all summons, hearing dates, and court deadlines with the respective court registry or a licensed advocate.</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Container -->
+    <main class="gov-main-content" id="main-content">
+        <!-- Toast Notification Container -->
+        <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+        <!-- =============================================================== -->
+        <!-- TAB 1: DASHBOARD -->
+        <!-- =============================================================== -->
+        <section class="tab-view active" id="view-dashboard" aria-labelledby="heading-dashboard">
+            <!-- Ticker Notice Board -->
+            <div class="gov-notice-ticker">
+                <div class="ticker-label">
+                    <span class="bullet-pulse"></span>
+                    <strong>NOTICE BOARD:</strong>
+                </div>
+                <div class="ticker-text">
+                    <span>AI-powered citizen legal companion under e-Courts mission initiative. Simplifying court orders and dates in plain language. NALSA Free Citizen Legal Helpline: 15100</span>
+                </div>
+            </div>
+
+            <!-- Page Title Header -->
+            <div class="view-header">
+                <div>
+                    <h2 class="view-title" id="heading-dashboard">Case Overview & Cause List Status</h2>
+                    <p class="view-subtitle">Central record of your registered legal cases, upcoming court hearings, and analyzed documents</p>
+                </div>
+                <div class="view-header-actions">
+                    <button class="btn btn-gov-secondary btn-sm" onclick="loadDashboard()">
+                        <span>🔄 Refresh</span>
+                    </button>
+                    <button class="btn btn-gov-primary btn-sm" onclick="switchTab('explain')">
+                        <span>📄 Analyze New Document</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Official Metric Cards -->
+            <div class="gov-metrics-grid">
+                <div class="gov-metric-card" id="card-total-cases" onclick="switchTab('cases')">
+                    <div class="metric-top-bar bar-blue"></div>
+                    <div class="gov-metric-inner">
+                        <div class="metric-emblem-box bg-blue">📁</div>
+                        <div class="metric-meta">
+                            <span class="gov-metric-label">Total Registered Cases</span>
+                            <h3 class="gov-metric-number" id="stat-total-cases">0</h3>
+                            <span class="gov-metric-sub">Active citizen dossiers</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gov-metric-card" id="card-total-docs" onclick="switchTab('cases')">
+                    <div class="metric-top-bar bar-purple"></div>
+                    <div class="gov-metric-inner">
+                        <div class="metric-emblem-box bg-purple">📑</div>
+                        <div class="metric-meta">
+                            <span class="gov-metric-label">Analyzed Documents & Orders</span>
+                            <h3 class="gov-metric-number" id="stat-total-docs">0</h3>
+                            <span class="gov-metric-sub">Processed legal records</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gov-metric-card" id="card-pending-dates" onclick="switchTab('dates')">
+                    <div class="metric-top-bar bar-amber"></div>
+                    <div class="gov-metric-inner">
+                        <div class="metric-emblem-box bg-amber">📅</div>
+                        <div class="metric-meta">
+                            <span class="gov-metric-label">Pending Court Hearings</span>
+                            <h3 class="gov-metric-number text-amber" id="stat-pending-dates">0</h3>
+                            <span class="gov-metric-sub">Upcoming cause list dates</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gov-metric-card" id="card-urgent-dates" onclick="switchTab('dates')">
+                    <div class="metric-top-bar bar-red"></div>
+                    <div class="gov-metric-inner">
+                        <div class="metric-emblem-box bg-red">⚠️</div>
+                        <div class="metric-meta">
+                            <span class="gov-metric-label">Urgent Deadlines (&le; 3 Days)</span>
+                            <h3 class="gov-metric-number text-red" id="stat-urgent-dates">0</h3>
+                            <span class="gov-metric-sub text-red">Immediate appearance/reply needed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Split Section: Citizen Assistance Hero + Cause List -->
+            <div class="gov-dashboard-grid">
+                <!-- Portal Mission Card -->
+                <div class="gov-card portal-mission-card">
+                    <div class="gov-card-header">
+                        <div class="seal-header-row">
+                            <span class="official-stamp-badge">CITIZEN LEGAL ASSISTANCE</span>
+                            <span class="gov-card-ref">Ref: MoLJ/CLA-2026/01</span>
+                        </div>
+                        <h3 class="mission-title">Received a Court Notice or Legal Summons? Don't panic.</h3>
+                    </div>
+                    <div class="gov-card-body">
+                        <p class="mission-desc">
+                            CaseSaathi AI breaks down complex court legalese, sections, and legal jargon into clear, plain language, and automatically organizes your upcoming court hearings in your daily cause list.
+                        </p>
+
+                        <div class="official-checklist-grid">
+                            <div class="checklist-item">
+                                <span class="check-mark">✓</span>
+                                <div>
+                                    <strong>Plain Language Simplification</strong>
+                                    <span>Clear explanation of summons, vakalatnama, legal sections & orders</span>
+                                </div>
+                            </div>
+                            <div class="checklist-item">
+                                <span class="check-mark">✓</span>
+                                <div>
+                                    <strong>Multi-Language Assistance</strong>
+                                    <span>English, Hindi, Tamil, Telugu, Marathi, and Bengali</span>
+                                </div>
+                            </div>
+                            <div class="checklist-item">
+                                <span class="check-mark">✓</span>
+                                <div>
+                                    <strong>Strict Date & Deadline Extraction</strong>
+                                    <span>Identifies dates for court appearances, written replies & compliance</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hero-action-buttons">
+                            <button class="btn btn-gov-primary btn-lg" onclick="switchTab('explain')">
+                                <span>📄 Upload & Analyze Legal Document</span>
+                            </button>
+                            <button class="btn btn-gov-secondary btn-lg" onclick="switchTab('glossary')">
+                                <span>📖 Citizen Legal Rights Guide</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daily Cause List Widget -->
+                <div class="gov-card cause-list-widget">
+                    <div class="gov-card-header">
+                        <div class="card-title-group">
+                            <h3 class="gov-card-title">⏰ Daily Cause List</h3>
+                            <span class="gov-card-subtitle">Upcoming court hearings & appearance schedule</span>
+                        </div>
+                        <button class="btn btn-text" onclick="switchTab('dates')">View Full Cause List →</button>
+                    </div>
+                    <div class="gov-card-body" id="dashboard-upcoming-list">
+                        <div class="empty-state-mini">Loading cause list...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case Dossiers Section -->
+            <div class="gov-card recent-dossiers-card">
+                <div class="gov-card-header">
+                    <div class="card-title-group">
+                        <h3 class="gov-card-title">📂 Registered Case Dossiers</h3>
+                        <span class="gov-card-subtitle">Official records of cases organized by court</span>
+                    </div>
+                    <button class="btn btn-gov-primary btn-sm" onclick="openNewCaseModal()">+ Register New Case</button>
+                </div>
+                <div class="gov-card-body" id="dashboard-cases-container">
+                    <div class="empty-state-mini">Loading case dossiers...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =============================================================== -->
+        <!-- TAB 2: EXPLAIN DOCUMENT (दस्तावेज विश्लेषक) -->
+        <!-- =============================================================== -->
+        <section class="tab-view" id="view-explain" aria-labelledby="heading-explain">
+            <div class="view-header">
+                <div>
+                    <h2 class="view-title" id="heading-explain">Legal Document Explainer</h2>
+                    <p class="view-subtitle">Upload a court summons, FIR, bail order, decree, or legal notice. AI will explain it in simple, everyday language.</p>
+                </div>
+                <div class="official-verified-badge">
+                    <span>🛡️ AI Engine: </span><strong>Google Gemini 2.5 Flash</strong>
+                </div>
+            </div>
+
+            <div class="explainer-container">
+                <!-- Upload Setup Form -->
+                <div class="gov-card form-setup-card">
+                    <div class="gov-card-header">
+                        <h3 class="gov-card-title">Document Submission Form</h3>
+                        <span class="gov-card-subtitle">Select the case and desired explanation language</span>
+                    </div>
+                    <div class="gov-card-body">
+                        <form id="explain-form" onsubmit="handleExplainSubmit(event)">
+                            <!-- Step 1: Assign to Case -->
+                            <div class="gov-form-step">
+                                <div class="step-badge">Step 1</div>
+                                <div class="step-details">
+                                    <label for="explain-case-select" class="gov-form-label">Select Registered Case *</label>
+                                    <div class="case-select-wrapper">
+                                        <select id="explain-case-select" class="gov-form-control gov-select" required>
+                                            <option value="" disabled selected>Select target case...</option>
+                                        </select>
+                                        <button type="button" class="btn btn-gov-secondary btn-sm" onclick="openNewCaseModal()">+ New Case</button>
+                                    </div>
+                                    <span class="gov-form-hint">The document analysis and extracted court dates will be filed under this case.</span>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Language Selection -->
+                            <div class="gov-form-step">
+                                <div class="step-badge">Step 2</div>
+                                <div class="step-details">
+                                    <label class="gov-form-label">Explanation Language *</label>
+                                    <div class="gov-language-selector" id="language-options">
+                                        <button type="button" class="gov-lang-chip active" data-lang="English" onclick="selectLanguage('English')">
+                                            <span class="lang-title">English</span>
+                                            <span class="lang-native">Plain legal words</span>
+                                        </button>
+                                        <button type="button" class="gov-lang-chip" data-lang="Hindi" onclick="selectLanguage('Hindi')">
+                                            <span class="lang-title">हिंदी (Hindi)</span>
+                                            <span class="lang-native">सरल जनभाषा में</span>
+                                        </button>
+                                        <button type="button" class="gov-lang-chip" data-lang="Tamil" onclick="selectLanguage('Tamil')">
+                                            <span class="lang-title">தமிழ் (Tamil)</span>
+                                            <span class="lang-native">எளிய தமிழ் உரை</span>
+                                        </button>
+                                        <button type="button" class="gov-lang-chip" data-lang="Telugu" onclick="selectLanguage('Telugu')">
+                                            <span class="lang-title">తెలుగు (Telugu)</span>
+                                            <span class="lang-native">సులభ శైలి తెలుగు</span>
+                                        </button>
+                                        <button type="button" class="gov-lang-chip" data-lang="Marathi" onclick="selectLanguage('Marathi')">
+                                            <span class="lang-title">मराठी (Marathi)</span>
+                                            <span class="lang-native">सोपी मराठी भाषा</span>
+                                        </button>
+                                        <button type="button" class="gov-lang-chip" data-lang="Bengali" onclick="selectLanguage('Bengali')">
+                                            <span class="lang-title">বাংলা (Bengali)</span>
+                                            <span class="lang-native">সহজ সরল বাংলা</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: File Upload -->
+                            <div class="gov-form-step">
+                                <div class="step-badge">Step 3</div>
+                                <div class="step-details">
+                                    <label class="gov-form-label">Upload Legal Document (PDF / Scan / Image) *</label>
+                                    <div class="gov-dropzone" id="file-dropzone" onclick="triggerFileInput()">
+                                        <input type="file" id="file-input" accept=".pdf,image/png,image/jpeg,image/jpg,image/webp" style="display: none;" onchange="handleFileSelected(event)">
+                                        <div class="dropzone-idle-state" id="dropzone-idle">
+                                            <div class="dropzone-crest-icon">📥</div>
+                                            <h4>Click or Drag & Drop Document Here</h4>
+                                            <p>Supported formats: Scanned PDF, court summons, orders, images (PNG, JPG, WEBP - max 25MB)</p>
+                                            <div class="format-badges">
+                                                <span>PDF</span>
+                                                <span>PNG</span>
+                                                <span>JPG</span>
+                                                <span>WEBP</span>
+                                            </div>
+                                        </div>
+                                        <div class="dropzone-active-file" id="dropzone-selected" style="display: none;">
+                                            <div class="file-display-info">
+                                                <span class="file-type-crest" id="file-icon-display">📑</span>
+                                                <div>
+                                                    <div class="gov-selected-filename" id="selected-filename-text">court_summons.pdf</div>
+                                                    <div class="gov-selected-filesize" id="selected-filesize-text">1.4 MB</div>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn btn-gov-secondary btn-sm" onclick="clearSelectedFile(event)">Remove</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="form-action-footer">
+                                <button type="submit" class="btn btn-gov-primary btn-lg" id="btn-analyze-doc">
+                                    <span>⚡ Start Document Analysis (Analyze with AI)</span>
+                                </button>
+                                <span class="action-security-note">🔒 Secure & confidential processing — zero hallucination verification</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Analysis In-Progress State -->
+                <div class="gov-card analysis-loading-card" id="analysis-loading-box" style="display: none;">
+                    <div class="loading-ashoka-wheel"></div>
+                    <h3 id="loading-stage-title">Analyzing legal document with Gemini 2.5 Flash...</h3>
+                    <p id="loading-stage-desc">Verifying legal sections, party liabilities, and extracting upcoming court dates.</p>
+                    <div class="loading-gov-steps">
+                        <div class="gov-progress-step active" id="lstep-1">1. Scanning Document</div>
+                        <div class="gov-progress-step" id="lstep-2">2. Legal Reasoning</div>
+                        <div class="gov-progress-step" id="lstep-3">3. Plain Translation</div>
+                        <div class="gov-progress-step" id="lstep-4">4. Date Verification</div>
+                    </div>
+                </div>
+
+                <!-- Official Analysis Dossier Output Section -->
+                <div class="official-dossier-results" id="analysis-results-box" style="display: none;">
+                    <!-- Dossier Official Letterhead Banner -->
+                    <div class="gov-card dossier-letterhead-card">
+                        <div class="letterhead-top-row">
+                            <div class="letterhead-crest">
+                                 <span class="seal-icon">🏛️</span>
+                                 <div>
+                                     <span class="official-label">Official Legal Analysis Report</span>
+                                     <h3 class="letterhead-title">CASE ANALYSIS DOSSIER</h3>
+                                 </div>
+                            </div>
+                            <div class="letterhead-stamp">
+                                <div class="digital-stamp-box">
+                                     <span class="stamp-verified">✓ DIGITALLY VERIFIED</span>
+                                     <span class="stamp-engine">GEMINI 2.5 FLASH</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dossier-meta-table">
+                            <div class="meta-cell">
+                                <span class="meta-field">DOCUMENT TYPE:</span>
+                                <span class="meta-value text-gold" id="res-doc-type">Court Summons</span>
+                            </div>
+                            <div class="meta-cell">
+                                <span class="meta-field">CASE NUMBER:</span>
+                                <span class="meta-value" id="res-case-number">OS No. 124/2026</span>
+                            </div>
+                            <div class="meta-cell">
+                                <span class="meta-field">COURT / AUTHORITY:</span>
+                                <span class="meta-value" id="res-court">Senior Civil Judge Court</span>
+                            </div>
+                            <div class="meta-cell">
+                                <span class="meta-field">SOURCE FILE:</span>
+                                <span class="meta-value font-mono" id="res-filename">notice.pdf</span>
+                            </div>
+                        </div>
+
+                        <div class="dossier-print-bar">
+                            <button class="btn btn-gov-secondary btn-sm" onclick="window.print()">
+                                <span>🖨️ Print Dossier / Save PDF</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Critical Warnings Box (Feature 3) -->
+                    <div class="gov-alert-banner alert-crimson" id="res-warnings-container">
+                        <div class="alert-top-title">
+                            <span class="alert-sign">⚠️</span>
+                            <h4>CRITICAL LEGAL WARNINGS & RISKS</h4>
+                        </div>
+                        <ul class="gov-alert-bullets" id="res-warnings-list"></ul>
+                    </div>
+
+                    <!-- Plain Language Summary (Feature 3) -->
+                    <div class="gov-card result-panel">
+                        <div class="gov-card-header">
+                            <h3 class="gov-card-title">📝 Plain Language Explanation</h3>
+                            <span class="gov-card-subtitle">What this document actually means — without confusing legal jargon</span>
+                        </div>
+                        <div class="gov-card-body">
+                            <p class="gov-summary-text" id="res-summary-text"></p>
+                        </div>
+                    </div>
+
+                    <!-- What This Means For You (Feature 3) -->
+                    <div class="gov-card result-panel">
+                        <div class="gov-card-header">
+                            <h3 class="gov-card-title">💡 What This Means For You</h3>
+                            <span class="gov-card-subtitle">Practical impact on your property, rights, or legal obligations</span>
+                        </div>
+                        <div class="gov-card-body">
+                            <p class="gov-meaning-text" id="res-what-it-means-text"></p>
+                        </div>
+                    </div>
+
+                    <!-- Recommended Next Steps Checklist (Feature 3) -->
+                    <div class="gov-card result-panel">
+                        <div class="gov-card-header">
+                            <h3 class="gov-card-title">✅ Recommended Next Steps (Citizen Advisory)</h3>
+                            <span class="gov-card-subtitle">Actionable checklist in accordance with court procedures</span>
+                        </div>
+                        <div class="gov-card-body">
+                            <div class="gov-steps-list" id="res-next-steps-list"></div>
+                        </div>
+                    </div>
+
+                    <!-- Legal Glossary Jargon Buster (Feature 3) -->
+                    <div class="gov-card result-panel">
+                        <div class="gov-card-header">
+                            <h3 class="gov-card-title">📖 Legal Terms Decoded</h3>
+                            <span class="gov-card-subtitle">Simple everyday explanations of complex legal terms found in this document</span>
+                        </div>
+                        <div class="gov-card-body">
+                            <div class="gov-glossary-table" id="res-glossary-grid"></div>
+                        </div>
+                    </div>
+
+                    <!-- Extracted Court Dates Confirmation (Feature 4) -->
+                    <div class="gov-card result-panel date-confirmation-panel">
+                        <div class="gov-card-header">
+                            <div class="card-title-group">
+                                <h3 class="gov-card-title">📅 Extracted Hearing Dates & Deadlines</h3>
+                                <span class="gov-card-subtitle">Strict YYYY-MM-DD verification — review and confirm to calendar</span>
+                            </div>
+                            <span class="gov-status-pill pill-blue" id="res-dates-count">0 Dates Found</span>
+                        </div>
+                        <div class="gov-card-body">
+                            <div id="res-dates-list-container" class="gov-dates-editor">
+                                <!-- Dynamic dates rows -->
+                            </div>
+
+                            <div class="gov-save-action-banner">
+                                <div class="save-guidance">
+                                    <strong>Save to Official Records:</strong>
+                                    <span>Once confirmed, this analysis is attached to your case and hearing dates are scheduled in your daily cause list.</span>
+                                </div>
+                                <button type="button" class="btn btn-gov-success btn-lg" id="btn-save-dossier" onclick="saveDocumentAndDates()">
+                                    <span>💾 Save to Case & Cause List Calendar</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =============================================================== -->
+        <!-- TAB 3: MY CASES (वाद विवरण) -->
+        <!-- =============================================================== -->
+        <section class="tab-view" id="view-cases" aria-labelledby="heading-cases">
+            <div class="view-header">
+                <div>
+                    <h2 class="view-title" id="heading-cases">Registered Case Dossiers</h2>
+                    <p class="view-subtitle">Official records of all registered court cases, summons, notices, and documents</p>
+                </div>
+                <div class="view-header-actions">
+                    <button class="btn btn-gov-primary" onclick="openNewCaseModal()">
+                        <span>+ Register New Case</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search and Filter Bar -->
+            <div class="gov-filter-bar">
+                <div class="search-field-wrap">
+                    <span class="search-crest">🔍</span>
+                    <input type="text" id="case-search-input" class="gov-form-control" placeholder="Search by case title, court, or case number..." oninput="filterCasesList()">
+                </div>
+            </div>
+
+            <!-- Cases Grid -->
+            <div class="gov-cases-grid" id="cases-cards-container">
+                <div class="empty-state">Loading case records...</div>
+            </div>
+        </section>
+
+        <!-- =============================================================== -->
+        <!-- TAB 4: UPCOMING DATES & CAUSE LIST (दैनिक वाद सूची) -->
+        <!-- =============================================================== -->
+        <section class="tab-view" id="view-dates" aria-labelledby="heading-dates">
+            <div class="view-header">
+                <div>
+                    <h2 class="view-title" id="heading-dates">Cause List & Hearing Dates</h2>
+                    <p class="view-subtitle">Schedule of court appearances, vakalatnama filings, and written statement deadlines</p>
+                </div>
+                <div class="view-header-actions">
+                    <button class="btn btn-gov-secondary" onclick="openManualDateModal()">
+                        <span>+ Schedule Hearing Date</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filter tabs -->
+            <div class="gov-date-filters">
+                <button class="gov-filter-pill active" data-filter="all" onclick="filterDates('all')">
+                    All Dates
+                </button>
+                <button class="gov-filter-pill" data-filter="pending" onclick="filterDates('pending')">
+                    Pending Hearings
+                </button>
+                <button class="gov-filter-pill text-amber" data-filter="urgent" onclick="filterDates('urgent')">
+                    ⚠️ Urgent (&le; 3 Days)
+                </button>
+                <button class="gov-filter-pill" data-filter="completed" onclick="filterDates('completed')">
+                    ✓ Completed
+                </button>
+            </div>
+
+            <!-- Dates Timeline List -->
+            <div class="gov-cause-list-table-wrap" id="dates-timeline-container">
+                <div class="empty-state">Loading hearing dates...</div>
+            </div>
+        </section>
+
+        <!-- =============================================================== -->
+        <!-- TAB 5: LEGAL GUIDE & CITIZEN HELPLINES -->
+        <!-- =============================================================== -->
+        <section class="tab-view" id="view-glossary" aria-labelledby="heading-glossary">
+            <div class="view-header">
+                <div>
+                    <h2 class="view-title" id="heading-glossary">Citizen Legal Rights & Helplines</h2>
+                    <p class="view-subtitle">Under Article 39A of the Indian Constitution, free legal aid is a fundamental right for eligible citizens.</p>
+                </div>
+            </div>
+
+            <!-- National Emergency Helplines Card -->
+            <div class="gov-card national-helplines-card">
+                <div class="gov-card-header">
+                    <div class="seal-header-row">
+                        <span class="official-stamp-badge">NATIONAL HELPLINE SERVICES</span>
+                        <span class="gov-card-ref">24x7 Citizen Legal Support</span>
+                    </div>
+                    <h3 class="mission-title">Emergency Legal Aid & Citizen Helplines</h3>
+                    <p class="mission-desc">If you cannot afford an advocate, the Legal Services Authority provides free panel advocates.</p>
+                </div>
+                <div class="gov-card-body">
+                    <div class="helplines-national-grid">
+                        <div class="gov-helpline-box">
+                            <div class="helpline-icon-crest">🏛️</div>
+                            <div class="helpline-content">
+                                <strong>National Legal Services Authority (NALSA)</strong>
+                                <a href="tel:15100" class="helpline-number">15100</a>
+                                <span>24x7 toll-free helpline for free legal counseling & representation</span>
+                            </div>
+                        </div>
+
+                        <div class="gov-helpline-box">
+                            <div class="helpline-icon-crest">⚖️</div>
+                            <div class="helpline-content">
+                                <strong>Tele-Law Initiative (Dept of Justice)</strong>
+                                <a href="https://www.tele-law.in" target="_blank" rel="noopener" class="helpline-link">tele-law.in</a>
+                                <span>Free video consultations with panel lawyers via CSC centers</span>
+                            </div>
+                        </div>
+
+                        <div class="gov-helpline-box">
+                            <div class="helpline-icon-crest">🛡️</div>
+                            <div class="helpline-content">
+                                <strong>National Commission for Women / Women Helpline</strong>
+                                <a href="tel:1091" class="helpline-number">1091 / 181</a>
+                                <span>Domestic grievance, harassment support & swift legal intervention</span>
+                            </div>
+                        </div>
+
+                        <div class="gov-helpline-box">
+                            <div class="helpline-icon-crest">💻</div>
+                            <div class="helpline-content">
+                                <strong>eCourts Services</strong>
+                                <a href="https://ecourts.gov.in" target="_blank" rel="noopener" class="helpline-link">ecourts.gov.in</a>
+                                <span>Check official case status (CNR number) for any court across India</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Everyday Legal Dictionary -->
+            <div class="gov-card dictionary-card">
+                <div class="gov-card-header">
+                    <div class="card-title-group">
+                        <h3 class="gov-card-title">📖 Everyday Legal Dictionary</h3>
+                        <span class="gov-card-subtitle">Plain explanations of commonly encountered legal words in summons, petitions & orders</span>
+                    </div>
+                    <div class="search-field-wrap glossary-search-field">
+                        <input type="text" id="glossary-search-input" class="gov-form-control" placeholder="Search legal terms (e.g., Summons, Bail, Stay Order, Vakalatnama)..." oninput="filterGlossaryGuide()">
+                    </div>
+                </div>
+                <div class="gov-card-body">
+                    <div class="gov-glossary-dict-grid" id="glossary-guide-container">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- =================================================================== -->
+    <!-- MODALS -->
+    <!-- =================================================================== -->
+
+    <!-- Modal 1: New Case Registration -->
+    <div class="modal-overlay" id="modal-new-case" style="display: none;">
+        <div class="gov-modal-card">
+            <div class="gov-modal-header">
+                <div>
+                    <span class="modal-badge">FORM LC-01</span>
+                    <h3 class="gov-modal-title">📁 Register New Case Dossier</h3>
+                </div>
+                <button class="gov-modal-close" onclick="closeModal('modal-new-case')">✕</button>
+            </div>
+            <form onsubmit="handleCreateCase(event)">
+                <div class="gov-modal-body">
+                    <div class="gov-form-group">
+                        <label for="new-case-title" class="gov-form-label">Case Title / Brief Summary *</label>
+                        <input type="text" id="new-case-title" class="gov-form-control" placeholder="e.g., Property Boundary Dispute / Tenant Notice" required>
+                    </div>
+                    <div class="gov-form-group">
+                        <label for="new-case-number" class="gov-form-label">केस / वाद / एफआईआर संख्या (Case / FIR / Suit Number)</label>
+                        <input type="text" id="new-case-number" class="gov-form-control" placeholder="उदा: OS No. 124/2026 या CC 567/2025">
+                    </div>
+                    <div class="gov-form-group">
+                        <label for="new-case-court" class="gov-form-label">न्यायालय / संबंधित प्राधिकरण का नाम (Court / Forum Name)</label>
+                        <input type="text" id="new-case-court" class="gov-form-control" placeholder="उदा: वरिष्ठ सिविल न्यायाधीश न्यायालय, भोपाल">
+                    </div>
+                </div>
+                <div class="gov-modal-footer">
+                    <button type="button" class="btn btn-gov-secondary" onclick="closeModal('modal-new-case')">रद्द करें (Cancel)</button>
+                    <button type="submit" class="btn btn-gov-primary" id="btn-submit-case">सुरक्षित करें (Register Case)</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 2: Manual Date Entry -->
+    <div class="modal-overlay" id="modal-manual-date" style="display: none;">
+        <div class="gov-modal-card">
+            <div class="gov-modal-header">
+                <div>
+                    <span class="modal-badge">CAUSE LIST ENTRY</span>
+                    <h3 class="gov-modal-title">📅 न्यायालयीन पेशी तिथि जोड़ें (Schedule Hearing Date)</h3>
+                </div>
+                <button class="gov-modal-close" onclick="closeModal('modal-manual-date')">✕</button>
+            </div>
+            <form onsubmit="handleManualDateSubmit(event)">
+                <div class="gov-modal-body">
+                    <div class="gov-form-group">
+                        <label for="manual-date-case" class="gov-form-label">संबंधित वाद चुनें (Select Registered Case) *</label>
+                        <select id="manual-date-case" class="gov-form-control gov-select" required></select>
+                    </div>
+                    <div class="gov-form-group">
+                        <label for="manual-date-val" class="gov-form-label">पेशी / अंतिम तिथि (Date YYYY-MM-DD) *</label>
+                        <input type="date" id="manual-date-val" class="gov-form-control" required>
+                    </div>
+                    <div class="gov-form-group">
+                        <label for="manual-date-desc" class="gov-form-label">सुनवाई का प्रयोजन / कार्यवाही (Purpose / Stage) *</label>
+                        <input type="text" id="manual-date-desc" class="gov-form-control" placeholder="उदा: जवाब-दावा दाखिल करना / साक्ष्य प्रस्तुति" required>
+                    </div>
+                    <div class="gov-form-group">
+                        <label for="manual-date-notes" class="gov-form-label">टिप्पणी / आवश्यक दस्तावेज (Instructions / Notes)</label>
+                        <input type="text" id="manual-date-notes" class="gov-form-control" placeholder="उदा: मूल विक्रय पत्र एवं शपथ पत्र साथ ले जाना है">
+                    </div>
+                </div>
+                <div class="gov-modal-footer">
+                    <button type="button" class="btn btn-gov-secondary" onclick="closeModal('modal-manual-date')">रद्द करें (Cancel)</button>
+                    <button type="submit" class="btn btn-gov-primary" id="btn-submit-date">वाद सूची में जोड़ें (Add to Cause List)</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal 3: API Key Engine Configuration -->
+    <div class="modal-overlay" id="modal-api-key" style="display: none;">
+        <div class="gov-modal-card">
+            <div class="gov-modal-header">
+                <div>
+                    <span class="modal-badge">SOVEREIGN AI ENGINE</span>
+                    <h3 class="gov-modal-title">🔑 Google Gemini 2.5 Flash API विन्यास</h3>
+                </div>
+                <button class="gov-modal-close" onclick="closeModal('modal-api-key')">✕</button>
+            </div>
+            <div class="gov-modal-body">
+                <p style="font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 14px;">
+                    केस साथी एआई पोर्टल भारतीय कानूनी दस्तावेजों के सूक्ष्म विश्लेषण एवं क्षेत्रीय अनुवाद हेतु <strong>Google Gemini 2.5 Flash</strong> मॉडल का उपयोग करता है।
+                </p>
+                <div class="key-status-box" id="modal-key-status-box">
+                    <span id="modal-key-status-text">परिवेश एपीआई कुंजी की जांच की जा रही है...</span>
+                </div>
+                <div class="gov-form-group" style="margin-top: 16px;">
+                    <label for="custom-gemini-key" class="gov-form-label">कस्टम जेमिनी एपीआई कुंजी (Custom API Key Override):</label>
+                    <input type="password" id="custom-gemini-key" class="gov-form-control font-mono" placeholder="AIzaSy...">
+                    <span class="gov-form-hint">आप अपनी निःशुल्क कुंजी <a href="https://aistudio.google.com/" target="_blank" rel="noopener" style="color: var(--gov-gold); text-decoration: underline;">Google AI Studio</a> से प्राप्त कर सकते हैं। यह आपके ब्राउज़र में सुरक्षित रूप से सहेजी जाएगी।</span>
+                </div>
+            </div>
+            <div class="gov-modal-footer">
+                <button type="button" class="btn btn-gov-secondary" onclick="closeModal('modal-api-key')">बंद करें</button>
+                <button type="button" class="btn btn-gov-primary" onclick="saveCustomApiKey()">सुरक्षित करें (Save Key)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4: Case Dossier Detail Viewer -->
+    <div class="modal-overlay modal-wide" id="modal-case-detail" style="display: none;">
+        <div class="gov-modal-card">
+            <div class="gov-modal-header">
+                <div>
+                    <span class="modal-badge">CASE DOSSIER</span>
+                    <h3 class="gov-modal-title" id="dossier-case-title">वाद विवरण पत्रक</h3>
+                    <span class="dossier-subtitle" id="dossier-case-meta">Court: Not specified | Case No: Not specified</span>
+                </div>
+                <button class="gov-modal-close" onclick="closeModal('modal-case-detail')">✕</button>
+            </div>
+            <div class="gov-modal-body dossier-body">
+                <div class="dossier-nav">
+                    <button class="dossier-tab-btn active" id="dtab-docs-btn" onclick="switchDossierTab('docs')">📑 संलग्न दस्तावेज (<span id="dossier-doc-count">0</span>)</button>
+                    <button class="dossier-tab-btn" id="dtab-dates-btn" onclick="switchDossierTab('dates')">📅 वाद सूची तिथियां (<span id="dossier-dates-count">0</span>)</button>
+                </div>
+
+                <div id="dossier-docs-panel" class="dossier-panel active">
+                    <div id="dossier-docs-list">दस्तावेज लोड हो रहे हैं...</div>
+                </div>
+
+                <div id="dossier-dates-panel" class="dossier-panel" style="display: none;">
+                    <div id="dossier-dates-list">तिथियां लोड हो रही हैं...</div>
+                </div>
+            </div>
+            <div class="gov-modal-footer">
+                <button type="button" class="btn btn-gov-danger btn-sm" id="btn-delete-case-action">यह वाद हटाएं (Delete Case)</button>
+                <button type="button" class="btn btn-gov-primary" onclick="closeModal('modal-case-detail')">बंद करें (Close)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 5: Portal Settings & Language Preferences -->
+    <div class="modal-overlay" id="modal-portal-settings" style="display: none;">
+        <div class="gov-modal-card">
+            <div class="gov-modal-header">
+                <div>
+                    <span class="modal-badge">PORTAL CONFIGURATION</span>
+                    <h3 class="gov-modal-title">⚙️ पोर्टल विन्यास एवं सेटिंग्स (Portal Settings)</h3>
+                </div>
+                <button class="gov-modal-close" onclick="closeModal('modal-portal-settings')">✕</button>
+            </div>
+            <div class="gov-modal-body">
+                <!-- Settings Tabs -->
+                <div class="dossier-nav">
+                    <button class="dossier-tab-btn active" id="stab-lang-btn" onclick="switchSettingsTab('lang')">🌐 भाषा चयन (Language)</button>
+                    <button class="dossier-tab-btn" id="stab-disp-btn" onclick="switchSettingsTab('disp')">🎨 प्रदर्शन (Display)</button>
+                    <button class="dossier-tab-btn" id="stab-ai-btn" onclick="switchSettingsTab('ai')">🔑 AI इंजन (Gemini Key)</button>
+                </div>
+
+                <!-- Settings Tab 1: Language Selection -->
+                <div id="settings-lang-panel" class="settings-panel active">
+                    <label class="gov-form-label">पोर्टल इंटरफेस एवं विश्लेषण भाषा (Portal & Explanation Language):</label>
+                    <p style="font-size: 0.82rem; color: var(--text-secondary); margin-bottom: 14px;">
+                        अपनी पसंदीदा भाषा चुनें। पोर्टल के सभी मेनू, सूचनाएं तथा कानूनी दस्तावेजों का विश्लेषण इसी भाषा में प्रस्तुत किया जाएगा:
+                    </p>
+                    <div class="settings-lang-grid">
+                        <div class="lang-setting-card" id="lcard-Hindi" onclick="setPortalLanguage('Hindi')">
+                            <div class="lang-radio-circle"></div>
+                            <div class="lang-setting-info">
+                                <span class="lang-setting-title">हिंदी (Hindi)</span>
+                                <span class="lang-setting-desc">राष्ट्रीय राजभाषा • सरल जनभाषा</span>
+                            </div>
+                        </div>
+                        <div class="lang-setting-card active" id="lcard-English" onclick="setPortalLanguage('English')">
+                            <div class="lang-radio-circle"></div>
+                            <div class="lang-setting-info">
+                                <span class="lang-setting-title">English</span>
+                                <span class="lang-setting-desc">Standard Plain Legal Language</span>
+                            </div>
+                        </div>
+                        <div class="lang-setting-card" id="lcard-Tamil" onclick="setPortalLanguage('Tamil')">
+                            <div class="lang-radio-circle"></div>
+                            <div class="lang-setting-info">
+                                <span class="lang-setting-title">தமிழ் (Tamil)</span>
+                                <span class="lang-setting-desc">எளிய தமிழ் உரை</span>
+                            </div>
+                        </div>
+                        <div class="lang-setting-card" id="lcard-Telugu" onclick="setPortalLanguage('Telugu')">
+                            <div class="lang-radio-circle"></div>
+                            <div class="lang-setting-info">
+                                <span class="lang-setting-title">తెలుగు (Telugu)</span>
+                                <span class="lang-setting-desc">సులభ శైలి తెలుగు వివరణ</span>
+                            </div>
+                        </div>
+                        <div class="lang-setting-card" id="lcard-Marathi" onclick="setPortalLanguage('Marathi')">
+                            <div class="lang-radio-circle"></div>
+                            <div class="lang-setting-info">
+                                <span class="lang-setting-title">मराठी (Marathi)</span>
+                                <span class="lang-setting-desc">सोपी मराठी भाषा</span>
+                            </div>
+                        </div>
+                        <div class="lang-setting-card" id="lcard-Bengali" onclick="setPortalLanguage('Bengali')">
+                            <div class="lang-radio-circle"></div>
+                            <div class="lang-setting-info">
+                                <span class="lang-setting-title">বাংলা (Bengali)</span>
+                                <span class="lang-setting-desc">সহজ সরল বাংলা সারসংক্ষেপ</span>
+                            </div>
+                        </div>
+                        <div class="lang-setting-card" id="lcard-Gujarati" onclick="setPortalLanguage('Gujarati')">
+                            <div class="lang-radio-circle"></div>
+                            <div class="lang-setting-info">
+                                <span class="lang-setting-title">ગુજરાતી (Gujarati)</span>
+                                <span class="lang-setting-desc">સરળ ગુજરાતી ભાષા</span>
+                            </div>
+                        </div>
+                        <div class="lang-setting-card" id="lcard-Kannada" onclick="setPortalLanguage('Kannada')">
+                            <div class="lang-radio-circle"></div>
+                            <div class="lang-setting-info">
+                                <span class="lang-setting-title">ಕನ್ನಡ (Kannada)</span>
+                                <span class="lang-setting-desc">ಸರಳ ಕನ್ನಡ ವಿವರಣೆ</span>
+                            </div>
+                        </div>
+                        <div class="lang-setting-card" id="lcard-Malayalam" onclick="setPortalLanguage('Malayalam')">
+                            <div class="lang-radio-circle"></div>
+                            <div class="lang-setting-info">
+                                <span class="lang-setting-title">മലയാളം (Malayalam)</span>
+                                <span class="lang-setting-desc">ലളിതമായ മലയാളം</span>
+                            </div>
+                        </div>
+                        <div class="lang-setting-card" id="lcard-Punjabi" onclick="setPortalLanguage('Punjabi')">
+                            <div class="lang-radio-circle"></div>
+                            <div class="lang-setting-info">
+                                <span class="lang-setting-title">ਪੰਜਾਬੀ (Punjabi)</span>
+                                <span class="lang-setting-desc">ਸਰਲ ਪੰਜਾਬੀ ਸ਼ੈਲੀ</span>
+                            </div>
+                        </div>
+                        <div class="lang-setting-card" id="lcard-Odia" onclick="setPortalLanguage('Odia')">
+                            <div class="lang-radio-circle"></div>
+                            <div class="lang-setting-info">
+                                <span class="lang-setting-title">ଓଡ଼ିଆ (Odia)</span>
+                                <span class="lang-setting-desc">ସରଳ ଓଡ଼ିଆ ଭାଷା</span>
+                            </div>
+                        </div>
+                        <div class="lang-setting-card" id="lcard-Urdu" onclick="setPortalLanguage('Urdu')">
+                            <div class="lang-radio-circle"></div>
+                            <div class="lang-setting-info">
+                                <span class="lang-setting-title">اردو (Urdu)</span>
+                                <span class="lang-setting-desc">سادہ اردو زبان</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Tab 2: Display & Accessibility -->
+                <div id="settings-disp-panel" class="settings-panel" style="display: none;">
+                    <div class="gov-form-group">
+                        <label class="gov-form-label">अक्षर आकार (Font Size Scaling):</label>
+                        <div style="display: flex; gap: 10px; margin-top: 6px;">
+                            <button type="button" class="btn btn-gov-secondary btn-sm" onclick="adjustFontSize(-1)">A- छोटा (14px)</button>
+                            <button type="button" class="btn btn-gov-secondary btn-sm" onclick="adjustFontSize(0)">A सामान्य (16px)</button>
+                            <button type="button" class="btn btn-gov-secondary btn-sm" onclick="adjustFontSize(1)">A+ बड़ा (18px)</button>
+                        </div>
+                    </div>
+                    <div class="gov-form-group" style="margin-top: 18px;">
+                        <label class="gov-form-label">कंट्रास्ट / रंग थीम (Color Contrast Mode):</label>
+                        <div style="display: flex; gap: 10px; margin-top: 6px;">
+                            <button type="button" class="btn btn-gov-secondary btn-sm" onclick="document.body.classList.remove('light-contrast'); localStorage.setItem('casesaathi_contrast_theme', 'dark'); showToast('Dark Judicial Slate active', 'info');">
+                                🌙 गहरा न्यायिक प्रारूप (Dark Judiciary)
+                            </button>
+                            <button type="button" class="btn btn-gov-secondary btn-sm" onclick="document.body.classList.add('light-contrast'); localStorage.setItem('casesaathi_contrast_theme', 'light'); showToast('Light High-Contrast active', 'info');">
+                                ☀️ उच्च कंट्रास्ट लाइट (Light Contrast)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Tab 3: AI Engine -->
+                <div id="settings-ai-panel" class="settings-panel" style="display: none;">
+                    <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 12px;">
+                        केस साथी एआई पोर्टल भारतीय कानूनी दस्तावेजों के सूक्ष्म विश्लेषण एवं क्षेत्रीय अनुवाद हेतु <strong>Google Gemini 2.5 Flash</strong> मॉडल का उपयोग करता है।
+                    </p>
+                    <div class="key-status-box" id="settings-key-status-box">
+                        <span id="settings-key-status-text">परिवेश एपीआई कुंजी की जांच की जा रही है...</span>
+                    </div>
+                    <div class="gov-form-group" style="margin-top: 16px;">
+                        <label for="settings-gemini-key" class="gov-form-label">कस्टम जेमिनी एपीआई कुंजी (Custom Gemini API Key):</label>
+                        <input type="password" id="settings-gemini-key" class="gov-form-control font-mono" placeholder="AIzaSy...">
+                        <span class="gov-form-hint">निःशुल्क कुंजी <a href="https://aistudio.google.com/" target="_blank" rel="noopener" style="color: var(--gov-gold); text-decoration: underline;">Google AI Studio</a> से प्राप्त करें।</span>
+                    </div>
+                </div>
+            </div>
+            <div class="gov-modal-footer">
+                <button type="button" class="btn btn-gov-secondary" onclick="closeModal('modal-portal-settings')">बंद करें</button>
+                <button type="button" class="btn btn-gov-primary" onclick="savePortalSettings()">प्राथमिकताएं सहेजें (Save Preferences)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Official Government Portal Footer -->
+    <footer class="official-portal-footer">
+        <div class="footer-top-strip">
+            <div class="footer-container">
+                <div class="footer-col-main">
+                    <div class="footer-crest-row">
+                        <span class="footer-crest-icon">⚖️</span>
+                        <div>
+                            <h4 class="footer-title">केस साथी एआई (CaseSaathi AI)</h4>
+                            <span class="footer-sub">राष्ट्रीय नागरिक विधिक साक्षरता एवं वाद विश्लेषण पहल</span>
+                        </div>
+                    </div>
+                    <p class="footer-desc">
+                        यह पोर्टल भारतीय नागरिकों को अदालती आदेशों, सम्मन एवं न्यायिक प्रक्रियाओं को सुगम जनभाषा में समझने तथा विधिक साक्षरता के संवर्धन हेतु निर्मित किया गया है।
+                    </p>
+                </div>
+
+                <div class="footer-col-links">
+                    <h5>महत्वपूर्ण न्यायिक पोर्टल</h5>
+                    <ul>
+                        <li><a href="https://ecourts.gov.in" target="_blank" rel="noopener">ई-कोर्ट्स सर्विसेज (ecourts.gov.in)</a></li>
+                        <li><a href="https://nalsa.gov.in" target="_blank" rel="noopener">राष्ट्रीय विधिक सेवा प्राधिकरण (NALSA)</a></li>
+                        <li><a href="https://tele-law.in" target="_blank" rel="noopener">टेली-लॉ योजना पोर्टल (Tele-Law)</a></li>
+                        <li><a href="https://indiacode.nic.in" target="_blank" rel="noopener">इंडिया कोड डिजिटल रिपोजिटरी (India Code)</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col-contact">
+                    <h5>राष्ट्रीय नागरिक सहायता</h5>
+                    <div class="contact-entry">
+                        <strong>निःशुल्क विधिक सहायता:</strong>
+                        <a href="tel:15100" class="contact-highlight">15100 (Toll Free)</a>
+                    </div>
+                    <div class="contact-entry">
+                        <strong>महिला हेल्पलाइन:</strong>
+                        <a href="tel:1091" class="contact-highlight">1091 / 181</a>
+                    </div>
+                    <div class="contact-entry">
+                        <strong>साइबर अपराध हेल्पलाइन:</strong>
+                        <a href="tel:1930" class="contact-highlight">1930</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom-strip">
+            <div class="footer-container bottom-row">
+                <p>
+                    पोर्टल सामग्री प्रबंधन: <strong>केस साथी एआई नागरिक विधिक सहायता प्रभाग</strong> • 
+                    सूचना सुरक्षा मानक एवं एआई उत्तरदायित्व दिशा-निर्देश 2026 के अनुरूप।
+                </p>
+                <p class="copyright-text">
+                    © 2026 CaseSaathi AI Portal — All Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- App JavaScript -->
+    <script src="/static/app.js"></script>
+</body>
+</html>
